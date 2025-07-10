@@ -14,6 +14,7 @@
             color: white;
             text-align: center;
             padding: 20px;
+            margin: 0;
         }
         table {
             border-collapse: collapse;
@@ -28,7 +29,8 @@
         input {
             margin: 10px;
             padding: 10px;
-            width: 250px;
+            width: 80%;
+            max-width: 300px;
             border-radius: 5px;
             border: 1px solid #ccc;
         }
@@ -39,6 +41,8 @@
             border: none;
             border-radius: 5px;
             cursor: pointer;
+            width: 80%;
+            max-width: 300px;
         }
         button:hover {
             background-color: #45a049;
@@ -48,13 +52,40 @@
         }
         iframe {
             margin: 20px 0;
-            max-width: 100%;
+            width: 100%;
+            max-width: 560px;
+            height: 315px;
             border: none;
         }
         .random-numbers {
             margin-top: 40px;
             font-size: 18px;
             color: #f39c12;
+        }
+        #videoContainer {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+        #videoContainer iframe {
+            width: 100%;
+            max-width: 560px;
+            height: 315px;
+        }
+        /* Adicionando media query para telas pequenas */
+        @media (max-width: 600px) {
+            input, button {
+                width: 90%; /* Ajustando inputs e botões para telas menores */
+                max-width: 100%;
+                font-size: 14px;
+            }
+            table {
+                width: 100%; /* Garantir que a tabela ocupe toda a largura em telas pequenas */
+            }
+            .random-numbers {
+                font-size: 16px; /* Reduzir o tamanho do texto em telas pequenas */
+            }
         }
     </style>
 </head>
@@ -80,7 +111,7 @@
     <!-- Seção para vídeos do YouTube -->
     <div id="videos">
         <h2>Vídeos do YouTube:</h2>
-        <div id="videoContainer" style="display: flex; justify-content: center; gap: 20px;">
+        <div id="videoContainer">
             <!-- Os vídeos serão inseridos aqui dinamicamente via JavaScript -->
         </div>
     </div>
@@ -94,36 +125,26 @@
     <script>
         // Função para calcular os resultados
         function calcular() {
-            // Obtendo os valores inseridos pelos usuários
             let quantidade = parseFloat(document.getElementById("quantidade").value);
             let quantidade2 = parseFloat(document.getElementById("quantidade2").value);
             let preco = parseFloat(document.getElementById("preco").value);
             let alimentacao = parseFloat(document.getElementById("alimentacao").value);
             let lazer = parseFloat(document.getElementById("lazer").value);
 
-            // Verificação se todos os campos foram preenchidos
             if (isNaN(quantidade) || isNaN(quantidade2) || isNaN(preco) || isNaN(alimentacao) || isNaN(lazer)) {
                 alert("Por favor, preencha todos os campos.");
                 return;
             }
 
-            // Calculando o total de fraldas
             let diasPorAno = 365;
-            let fraldasPorDia = quantidade2 * 5; // Média de 5 trocas de fraldas por dia
+            let fraldasPorDia = quantidade2 * 5; 
             let totalFraldas = fraldasPorDia * diasPorAno * quantidade;
-
-            // Calculando o custo total de fraldas
             let custoFraldas = totalFraldas * preco;
-
-            // Calculando o gasto anual com alimentação
             let custoAlimentacao = alimentacao * diasPorAno * quantidade;
-
-            // Calculando o gasto anual com lazer (considerando que o lazer é gasto por final de semana)
             let custoLazer = lazer * 52 * quantidade;
 
-            // Exibindo o resultado na página
             document.getElementById("resultado").innerHTML = `
-             <iframe id="myIframe" src="https://victorxx.github.io/iframegithub01/" allowfullscreen loading="lazy" width="100%" height="400"></iframe>
+                <iframe id="myIframe" src="https://victorxx.github.io/iframegithub01/" allowfullscreen loading="lazy" width="100%" height="400"></iframe>
                 <h2>Resultados</h2>
                 <table>
                     <tr>
@@ -154,7 +175,6 @@
             `;
         }
 
-        // Função para gerar números aleatórios e exibir no final
         function generateRandomNumbers() {
             let randomNumbers = '';
             for (let i = 0; i < 5; i++) {
@@ -163,31 +183,23 @@
             document.getElementById("numbers").innerHTML = randomNumbers;
         }
 
-        // Função para gerar os vídeos do YouTube dinamicamente
         function loadYouTubeVideos() {
-            // IDs dos vídeos do YouTube
-            let videoIds = ["Bk4z9ZbSGCA", "SXhAtImt10w"];  // Você pode adicionar mais IDs de vídeos aqui.
-
+            let videoIds = ["Bk4z9ZbSGCA", "SXhAtImt10w"];
             let container = document.getElementById("videoContainer");
-            
-            // Para cada ID de vídeo, cria um iframe e adiciona ao container
+
             videoIds.forEach(function(videoId) {
                 let iframe = document.createElement("iframe");
-                iframe.width = "560";
-                iframe.height = "315";
                 iframe.src = `https://www.youtube.com/embed/${videoId}`;
                 iframe.frameBorder = "0";
                 iframe.allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture";
                 iframe.allowFullscreen = true;
-                
                 container.appendChild(iframe);
             });
         }
 
-        // Chama as funções quando a página for carregada
         window.onload = function() {
-            generateRandomNumbers();  // Gerar números aleatórios
-            loadYouTubeVideos();      // Carregar vídeos do YouTube
+            generateRandomNumbers(); 
+            loadYouTubeVideos();      
         };
     </script>
 </body>
