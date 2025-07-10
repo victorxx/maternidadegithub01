@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="index,follow">
+    <meta name="author" content="Seu Nome ou Empresa">
+    <meta name="description" content="Calculadora de fraldas para facilitar o controle e o planejamento da quantidade necessária de fraldas para bebês.">
+    <title>Calculadora de Fraldas - Planejamento e Controle de Quantidade</title>
+    <style>
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background-color: black;
+            color: white;
+            text-align: center;
+            padding: 20px;
+        }
+        table {
+            border-collapse: collapse;
+            margin-top: 20px;
+            width: 80%;
+            margin: 0 auto;
+        }
+        th, td {
+            padding: 10px;
+            border: 1px solid white;
+        }
+        input {
+            margin: 10px;
+            padding: 10px;
+            width: 250px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        #resultado {
+            margin-top: 20px;
+        }
+        iframe {
+            margin: 20px 0;
+            max-width: 100%;
+            border: none;
+        }
+        .random-numbers {
+            margin-top: 40px;
+            font-size: 18px;
+            color: #f39c12;
+        }
+    </style>
+</head>
+<body>
+    <h1>Calculadora de Fraldas</h1>
+    <p><a href='https://victorxx.github.io/encaminhargithub/'>CONFIRA</a></p>
+    <p><a href="https://victorxx.github.io/randomizar001git/">CONFIRA</a></p>
+    <p>Preencha os dados abaixo para calcular o total de fraldas e os custos envolvidos.</p>
+    <p>Além do aborrecimento, você tem o custo. Compensa sim ou não?</p>
+
+    <input id="quantidade" type="number" placeholder="Quantidade de filhos">
+    <input id="quantidade2" type="number" placeholder="Número de vezes que defeca/dia">
+    <input id="preco" type="number" placeholder="Preço unitário da fralda (R$)">
+    <input id="alimentacao" type="number" placeholder="Gasto médio diário com alimentação (R$)">
+    <input id="lazer" type="number" placeholder="Gasto médio semanal com lazer (R$)">
+    <br><br>
+    <button onclick="calcular()">Calcular</button>
+
+    <div id="resultado">
+        <!-- Resultados serão mostrados aqui -->
+    </div>
+
+    <!-- Seção para vídeos do YouTube -->
+    <div id="videos">
+        <h2>Vídeos do YouTube:</h2>
+        <div id="videoContainer" style="display: flex; justify-content: center; gap: 20px;">
+            <!-- Os vídeos serão inseridos aqui dinamicamente via JavaScript -->
+        </div>
+    </div>
+
+    <!-- Exibindo números aleatórios -->
+    <div class="random-numbers" id="randomNumbers">
+        <h2>Números Aleatórios:</h2>
+        <p id="numbers"></p>
+    </div>
+
+    <script>
+        // Função para calcular os resultados
+        function calcular() {
+            // Obtendo os valores inseridos pelos usuários
+            let quantidade = parseFloat(document.getElementById("quantidade").value);
+            let quantidade2 = parseFloat(document.getElementById("quantidade2").value);
+            let preco = parseFloat(document.getElementById("preco").value);
+            let alimentacao = parseFloat(document.getElementById("alimentacao").value);
+            let lazer = parseFloat(document.getElementById("lazer").value);
+
+            // Verificação se todos os campos foram preenchidos
+            if (isNaN(quantidade) || isNaN(quantidade2) || isNaN(preco) || isNaN(alimentacao) || isNaN(lazer)) {
+                alert("Por favor, preencha todos os campos.");
+                return;
+            }
+
+            // Calculando o total de fraldas
+            let diasPorAno = 365;
+            let fraldasPorDia = quantidade2 * 5; // Média de 5 trocas de fraldas por dia
+            let totalFraldas = fraldasPorDia * diasPorAno * quantidade;
+
+            // Calculando o custo total de fraldas
+            let custoFraldas = totalFraldas * preco;
+
+            // Calculando o gasto anual com alimentação
+            let custoAlimentacao = alimentacao * diasPorAno * quantidade;
+
+            // Calculando o gasto anual com lazer (considerando que o lazer é gasto por final de semana)
+            let custoLazer = lazer * 52 * quantidade;
+
+            // Exibindo o resultado na página
+            document.getElementById("resultado").innerHTML = `
+             <iframe id="myIframe" src="https://victorxx.github.io/iframegithub01/" allowfullscreen loading="lazy" width="100%" height="400"></iframe>
+                <h2>Resultados</h2>
+                <table>
+                    <tr>
+                        <th>Descrição</th>
+                        <th>Valor (R$)</th>
+                    </tr>
+                    <tr>
+                        <td>Total de fraldas por ano (para todos os filhos)</td>
+                        <td>${totalFraldas}</td>
+                    </tr>
+                    <tr>
+                        <td>Custo total de fraldas por ano</td>
+                        <td>R$ ${custoFraldas.toFixed(2)}</td>
+                    </tr>
+                    <tr>
+                        <td>Custo anual com alimentação</td>
+                        <td>R$ ${custoAlimentacao.toFixed(2)}</td>
+                    </tr>
+                    <tr>
+                        <td>Custo anual com lazer</td>
+                        <td>R$ ${custoLazer.toFixed(2)}</td>
+                    </tr>
+                    <tr>
+                        <th>Total de gastos anuais (fraldas + alimentação + lazer)</th>
+                        <th>R$ ${(custoFraldas + custoAlimentacao + custoLazer).toFixed(2)}</th>
+                    </tr>
+                </table>
+            `;
+        }
+
+        // Função para gerar números aleatórios e exibir no final
+        function generateRandomNumbers() {
+            let randomNumbers = '';
+            for (let i = 0; i < 5; i++) {
+                randomNumbers += Math.floor(Math.random() * 1000) + '<br>';
+            }
+            document.getElementById("numbers").innerHTML = randomNumbers;
+        }
+
+        // Função para gerar os vídeos do YouTube dinamicamente
+        function loadYouTubeVideos() {
+            // IDs dos vídeos do YouTube
+            let videoIds = ["Bk4z9ZbSGCA", "SXhAtImt10w"];  // Você pode adicionar mais IDs de vídeos aqui.
+
+            let container = document.getElementById("videoContainer");
+            
+            // Para cada ID de vídeo, cria um iframe e adiciona ao container
+            videoIds.forEach(function(videoId) {
+                let iframe = document.createElement("iframe");
+                iframe.width = "560";
+                iframe.height = "315";
+                iframe.src = `https://www.youtube.com/embed/${videoId}`;
+                iframe.frameBorder = "0";
+                iframe.allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture";
+                iframe.allowFullscreen = true;
+                
+                container.appendChild(iframe);
+            });
+        }
+
+        // Chama as funções quando a página for carregada
+        window.onload = function() {
+            generateRandomNumbers();  // Gerar números aleatórios
+            loadYouTubeVideos();      // Carregar vídeos do YouTube
+        };
+    </script>
+</body>
+</html>
